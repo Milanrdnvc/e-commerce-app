@@ -1,0 +1,29 @@
+@import './variables';
+
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--color-primary, #3a34eb);
+  padding: 0.5rem 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &__picture {
+    margin-right: 1rem;
+  }
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &__icon {
+    margin-right: 1rem;
+  }
+}
