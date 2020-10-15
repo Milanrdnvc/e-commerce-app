@@ -1,0 +1,19 @@
+h1 {
+  text-align: center;
+  margin: 4rem 0;
+}
+
+.products-grid {
+  display: grid;
+  width: 80%;
+  margin: auto;
+  justify-items: center;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+
+  &__product {
+    box-shadow: -1px 0px 35px -7px rgba(0, 0, 0, 0.75);
+    padding: 1rem;
+  }
+}
