@@ -7,7 +7,6 @@ function Products() {
   const products = data.map(item => {
     return (
       <Product
-        img={item.src}
         price={item.price}
         desc={item.desc}
         key={item.key}
