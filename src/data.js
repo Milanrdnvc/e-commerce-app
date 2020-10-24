@@ -24,4 +24,19 @@ export const data = [
     desc: 'Megumin Body Pillow',
     key: '5',
   },
+  {
+    price: '34$',
+    desc: 'Jolyne Body Pillow',
+    key: '6',
+  },
+  {
+    price: '20$',
+    desc: 'Felix Body Pillow',
+    key: '7',
+  },
+  {
+    price: '59$',
+    desc: 'Sppedwagon Body Pillow',
+    key: '8',
+  },
 ];
