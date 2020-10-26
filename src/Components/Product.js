@@ -1,39 +1,9 @@
-import React, { useRef } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
 import Modal from './Modal';
-import { data } from '../data';
 import cartImg from '../Pictures/cart.png';
 
 function Product(props) {
-  const openModal = useRef(true);
-
-  function toggleModal(e) {
-    let id;
-
-    if (e.target.nodeName === 'H3' || e.target.nodeName === 'IMG') {
-      id = e.target.parentElement.id;
-    } else {
-      id = e.target.id;
-    }
-
-    const selectedItem = data.find(item => item.key === id);
-
-    if (openModal.current) {
-      ReactDOM.render(
-        <Modal
-          toggleModal={toggleModal}
-          img={selectedItem.key}
-          desc={selectedItem.desc}
-          price={selectedItem.price}
-        />,
-        document.querySelector('.modal')
-      );
-    } else {
-      ReactDOM.render(null, document.querySelector('.modal'));
-    }
-
-    openModal.current = !openModal.current;
-  }
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <>
@@ -50,13 +20,20 @@ function Product(props) {
         </div>
         <div
           className="products-grid__add-to-cart"
-          onClick={toggleModal}
+          onClick={() => setOpenModal(true)}
           id={props.id}
         >
           <img src={cartImg} alt="cart" width="80px" />
           <h3>Add To Cart</h3>
         </div>
       </div>
+      <Modal
+        id={props.id}
+        desc={props.desc}
+        price={props.price}
+        openModal={openModal}
+        toggleModal={() => setOpenModal(false)}
+      />
     </>
   );
 }

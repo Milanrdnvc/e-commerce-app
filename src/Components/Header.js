@@ -3,7 +3,7 @@ import logo from '../Pictures/logo.png';
 import cart from '../Pictures/cart.png';
 import '../CSS/Header.css';
 
-function Header() {
+function Header(props) {
   return (
     <header>
       <div className="logo">
@@ -12,7 +12,9 @@ function Header() {
       </div>
       <div className="cart">
         <img src={cart} alt="cart-icon" className="cart__icon" width="50px" />
-        <h2 className="cart__text">Cart</h2>
+        <h2 className="cart__text">
+          Cart <span className="num-of-products">(0)</span>
+        </h2>
       </div>
     </header>
   );

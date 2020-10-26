@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Product from './Product';
 import { data } from '../data.js';
 import '../CSS/Products.css';
 
 function Products() {
-  const [openModal, setOpenModal] = useState(false);
-
   const products = data.map(item => {
     return (
       <Product
@@ -13,16 +11,19 @@ function Products() {
         desc={item.desc}
         key={item.key}
         id={item.key}
+        data={data}
       />
     );
   });
 
   return (
-    <main>
-      <h1>Our Products</h1>
-      <div className="products-grid">{products}</div>
+    <>
+      <main>
+        <h1>Our Products</h1>
+        <div className="products-grid">{products}</div>
+      </main>
       <div className="modal"></div>
-    </main>
+    </>
   );
 }
 
