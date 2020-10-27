@@ -7,6 +7,9 @@ header {
   background-color: var(--color-primary, #3a34eb);
   color: white;
   padding: 0.5rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .logo {

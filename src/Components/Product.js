@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import Modal from './Modal';
 import cartImg from '../Pictures/cart.png';
 
+let numOfItemsAdded = 0;
+
 function Product(props) {
   const [openModal, setOpenModal] = useState(false);
+
+  function handleAddToCart() {
+    numOfItemsAdded++;
+    ReactDOM.render(
+      <span>({numOfItemsAdded})</span>,
+      document.querySelector('.num-of-products')
+    );
+    setOpenModal(true);
+  }
 
   return (
     <>
@@ -20,7 +32,7 @@ function Product(props) {
         </div>
         <div
           className="products-grid__add-to-cart"
-          onClick={() => setOpenModal(true)}
+          onClick={handleAddToCart}
           id={props.id}
         >
           <img src={cartImg} alt="cart" width="80px" />
