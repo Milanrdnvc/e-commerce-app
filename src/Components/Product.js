@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from './Modal';
 import cartImg from '../Pictures/cart.png';
@@ -32,11 +32,11 @@ function Product(props) {
         </div>
         <div
           className="products-grid__add-to-cart"
-          onClick={handleAddToCart}
+          onClick={numOfItemsAdded >= 1 ? null : handleAddToCart}
           id={props.id}
         >
           <img src={cartImg} alt="cart" width="80px" />
-          <h3>Add To Cart</h3>
+          <h3>{numOfItemsAdded >= 1 ? 'Go To Cart' : 'Add To Cart'}</h3>
         </div>
       </div>
       <Modal
