@@ -36,7 +36,7 @@ export const data = [
   },
   {
     price: '59$',
-    desc: 'Sppedwagon Body Pillow',
+    desc: 'Speedwagon Body Pillow',
     key: '8',
   },
 ];
