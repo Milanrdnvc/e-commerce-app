@@ -20,6 +20,10 @@ header {
   &__picture {
     margin-right: 1rem;
   }
+
+  &__text {
+    color: white;
+  }
 }
 
 .cart {
@@ -29,5 +33,9 @@ header {
 
   &__icon {
     margin-right: 1rem;
+  }
+
+  &__text {
+    color: white;
   }
 }

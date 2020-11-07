@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Products from './Products';
 import Cart from './Cart';
@@ -6,12 +6,18 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import '../CSS/App.css';
 
 function App() {
+  const [numOfItemsAdded, setNumOfItemsAdded] = useState(0);
+
   return (
     <>
-      <Header />
       <Router>
+        <Header numOfItemsAdded={numOfItemsAdded} />
         <Switch>
-          <Route path="/" exact component={Products} />
+          <Route
+            path="/"
+            exact
+            render={() => <Products setNumOfItemsAdded={setNumOfItemsAdded} />}
+          />
           <Route path="/cart" component={Cart} />
         </Switch>
       </Router>
