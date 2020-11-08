@@ -29,14 +29,14 @@ function Product(props) {
     setOpenModal(true);
   }
 
-  function handleMoreInfo() {
-    props.setInfo({ pic: props.id, desc: props.desc, price: props.price });
+  function handleSetInfo() {
+    props.setInfo({ id: props.id, desc: props.desc, price: props.price });
   }
 
   return (
     <>
       <Link to="/moreinfo" style={{ textDecoration: 'none', color: 'black' }}>
-        <div className="products-grid__product" onClick={handleMoreInfo}>
+        <div className="products-grid__product" onClick={handleSetInfo}>
           <img
             src={require(`../Pictures/Pillow${props.id}.jpg`)}
             alt={props.desc}
