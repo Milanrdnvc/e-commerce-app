@@ -9,7 +9,7 @@ function Product(props) {
   let productAdded;
   if (
     JSON.parse(localStorage.getItem('productAdded')) &&
-    JSON.parse(localStorage.getItem('productAdded')).length > 8
+    JSON.parse(localStorage.getItem('productAdded')).length > props.data.length
   ) {
     productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id];
   } else {
@@ -29,37 +29,45 @@ function Product(props) {
     setOpenModal(true);
   }
 
+  function handleMoreInfo() {
+    props.setInfo({ pic: props.id, desc: props.desc, price: props.price });
+  }
+
   return (
     <>
-      <div className="products-grid__product">
-        <img
-          src={require(`../Pictures/Pillow${props.id}.jpg`)}
-          alt={props.desc}
-          width="300px"
-          height="300px"
-        />
-        <div className="products-grid__text">
-          <h3>{props.desc}</h3>
-          <h3>{props.price}</h3>
-        </div>
-        {!productAdded ? (
-          <div
-            className="products-grid__add-to-cart"
-            onClick={handleAddToCart}
-            id={props.id}
-          >
-            <img src={cartImg} alt="cart" width="80px" />
-            <h3>Add To Cart</h3>
+      <Link to="/moreinfo" style={{ textDecoration: 'none', color: 'black' }}>
+        <div className="products-grid__product" onClick={handleMoreInfo}>
+          <img
+            src={require(`../Pictures/Pillow${props.id}.jpg`)}
+            alt={props.desc}
+            width="300px"
+            height="300px"
+          />
+          <div className="products-grid__text">
+            <h3>{props.desc}</h3>
+            <h3>{props.price}</h3>
           </div>
-        ) : (
-          <Link to="/cart">
-            <div className="products-grid__add-to-cart" id={props.id}>
-              <img src={cartImg} alt="cart" width="80px" />
-              <h3>Go To Cart</h3>
-            </div>
-          </Link>
-        )}
-      </div>
+          {!productAdded ? (
+            <Link to="/">
+              <div
+                className="products-grid__add-to-cart"
+                onClick={handleAddToCart}
+                id={props.id}
+              >
+                <img src={cartImg} alt="cart" width="80px" />
+                <h3>Add To Cart</h3>
+              </div>
+            </Link>
+          ) : (
+            <Link to="/cart">
+              <div className="products-grid__add-to-cart" id={props.id}>
+                <img src={cartImg} alt="cart" width="80px" />
+                <h3>Go To Cart</h3>
+              </div>
+            </Link>
+          )}
+        </div>
+      </Link>
       <Modal
         id={props.id}
         desc={props.desc}

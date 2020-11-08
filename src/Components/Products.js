@@ -13,6 +13,7 @@ function Products(props) {
         id={item.key}
         data={data}
         setNumOfItemsAdded={props.setNumOfItemsAdded}
+        setInfo={props.setInfo}
       />
     );
   });

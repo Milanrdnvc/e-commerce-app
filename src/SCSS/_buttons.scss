@@ -1,0 +1,32 @@
+@import 'variables';
+
+.btn-primary {
+  font-size: 1.5rem;
+  background-color: var(--color-primary, #3a34eb);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 0 1rem 1rem 0;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #4e48f0;
+  }
+}
+
+.btn-secondary {
+  color: white;
+  background-color: var(--color-secondary, #2bbee2);
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0b9bbe;
+  }
+}

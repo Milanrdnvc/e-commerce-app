@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'buttons';
 
 .added-to-cart-modal {
   position: fixed;
@@ -20,37 +21,6 @@
 
   h3 {
     font-size: 2rem;
-  }
-
-  &__btn-continue-shopping {
-    font-size: 1.5rem;
-    background-color: var(--color-primary, #3a34eb);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #4e48f0;
-    }
-  }
-
-  &__btn-go-to-cart {
-    color: white;
-    background-color: var(--color-secondary, #2bbee2);
-    border: none;
-    border-radius: 10px;
-    padding: 0.5rem;
-    font-size: 1.3rem;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #0b9bbe;
-    }
   }
 }
 

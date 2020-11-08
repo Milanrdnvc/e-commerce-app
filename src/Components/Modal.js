@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import '../CSS/Modal.css';
 
 function Modal(props) {
@@ -15,15 +16,12 @@ function Modal(props) {
         />
         <h3>{props.desc}</h3>
         <h3>Price: {props.price}</h3>
-        <button
-          className="added-to-cart-modal__btn-continue-shopping"
-          onClick={props.toggleModal}
-        >
+        <button className="btn-primary" onClick={props.toggleModal}>
           Continue Shopping
         </button>
-        <button className="added-to-cart-modal__btn-go-to-cart">
-          Go To Cart
-        </button>
+        <Link to="/cart">
+          <button className="btn-secondary">Go To Cart</button>
+        </Link>
       </div>
     </>,
     document.querySelector('.modal')
