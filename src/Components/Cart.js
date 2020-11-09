@@ -3,21 +3,38 @@ import CartItem from './CartItem';
 import '../CSS/Cart.css';
 
 function Cart(props) {
+  let items = JSON.parse(localStorage.getItem('productAdded')).filter(
+    item => item.added
+  );
+  const [subtotal, setSubtotal] = useState(
+    items
+      .map(item => {
+        return {
+          price: item.price.slice(0, item.price.length - 1),
+          total: item.total,
+        };
+      })
+      .reduce((a, c) => (a += c.price * c.total), 0)
+  );
+
   if (
     !JSON.parse(localStorage.getItem('productAdded')) ||
     JSON.parse(localStorage.getItem('productAdded')).every(item => !item.added)
   )
     return <h1>Cart Is Empty</h1>;
 
-  let items = JSON.parse(localStorage.getItem('productAdded')).filter(
-    item => item.added
-  );
-
   function removeItem(id) {
     const items = JSON.parse(localStorage.getItem('productAdded'));
-    items[id].added = false;
-    localStorage.setItem('productAdded', JSON.stringify(items));
-    props.setNumOfItemsAdded(prev => prev - 1);
+    if (id === 'all') {
+      let newItems = items.map(item => ({ ...item, added: false, total: 1 }));
+      localStorage.setItem('productAdded', JSON.stringify(newItems));
+      props.setNumOfItemsAdded(0);
+    } else {
+      items[id].added = false;
+      items[id].total = 1;
+      localStorage.setItem('productAdded', JSON.stringify(items));
+      props.setNumOfItemsAdded(prev => prev - 1);
+    }
   }
 
   const cartItems = items.map(item => {
@@ -28,11 +45,33 @@ function Cart(props) {
         price={item.price}
         key={item.id}
         removeItem={removeItem}
+        setSubtotal={setSubtotal}
       />
     );
   });
 
-  return <div className="products">{cartItems}</div>;
+  // const subtotal = items
+  // .map(item => {
+  // return {
+  // price: item.price.slice(0, item.price.length - 1),
+  // total: item.total,
+  // };
+  // })
+  // .reduce((a, c) => (a += c.price * c.total), 0);
+
+  return (
+    <div className="cart-items">
+      <div className="cart-items__products">{cartItems}</div>
+      <div className="cart-items__settings">
+        <button className="btn-primary" onClick={() => removeItem('all')}>
+          Clear Cart
+        </button>
+        <div className="cart-items__subtotal">Subtotal: {subtotal}</div>
+        <div className="cart-items__tax">Tax: 2.4$</div>
+        <div className="cart-items__total">Total: {subtotal + 2.4}$</div>
+      </div>
+    </div>
+  );
 }
 
 export default Cart;

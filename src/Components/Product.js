@@ -23,7 +23,6 @@ function Product(props) {
       desc: props.desc,
       price: props.price,
       total: 1,
-      render: true,
     };
     localStorage.setItem('productAdded', JSON.stringify(items));
     productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id]
