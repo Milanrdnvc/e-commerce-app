@@ -1,22 +1,25 @@
 import React from 'react';
-import test from '../Pictures/Pillow8.jpg';
 import trash from '../Pictures/trash.png';
 import '../CSS/Cart.css';
 
-function CartItem() {
+function CartItem(props) {
   return (
     <div className="products__product">
       <div className="products__product-part">
         <h2>PRODUCT</h2>
-        <img src={test} alt="Speedwagon Body Pillow" width="100px" />
+        <img
+          src={require(`../Pictures/Pillow${props.id}.jpg`)}
+          alt={props.desc}
+          width="100px"
+        />
       </div>
       <div className="products__product-part">
         <h2>NAME OF PRODUCT</h2>
-        <h3>Test Body Pillow</h3>
+        <h3>{props.desc}</h3>
       </div>
       <div className="products__product-part">
         <h2>PRICE</h2>
-        <h3>10$</h3>
+        <h3>{props.price}</h3>
       </div>
       <div className="products__product-part">
         <h2>QUANTITY</h2>

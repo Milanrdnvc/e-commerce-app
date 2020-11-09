@@ -23,12 +23,18 @@ function MoreInfo(props) {
 
   let addedToCart;
   if (localStorage.getItem('productAdded')) {
-    addedToCart = JSON.parse(localStorage.getItem('productAdded'))[props.id];
+    addedToCart = JSON.parse(localStorage.getItem('productAdded'))[props.id]
+      .added;
   }
 
   function handleAddToCart() {
     const items = JSON.parse(localStorage.getItem('productAdded'));
-    items[props.id ? props.id : id] = true;
+    items[props.id ? props.id : id] = {
+      added: true,
+      id: props.id ? props.id : id,
+      desc: props.desc ? props.desc : desc,
+      price: props.price ? props.price : price,
+    };
     localStorage.setItem('productAdded', JSON.stringify(items));
     props.setNumOfItemsAdded(prev => prev + 1);
     setOpenModal(true);

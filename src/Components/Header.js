@@ -7,7 +7,7 @@ import '../CSS/Header.css';
 function Header(props) {
   let addedItems = 0;
   const items = JSON.parse(localStorage.getItem('productAdded'));
-  if (items) items.forEach(item => (item ? addedItems++ : null));
+  if (items) items.forEach(item => (item.added ? addedItems++ : null));
   return (
     <header>
       <Link to="/" style={{ textDecoration: 'none' }}>

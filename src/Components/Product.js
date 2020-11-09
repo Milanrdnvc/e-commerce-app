@@ -9,21 +9,28 @@ function Product(props) {
   let productAdded;
   if (
     JSON.parse(localStorage.getItem('productAdded')) &&
-    JSON.parse(localStorage.getItem('productAdded')).length > props.data.length
+    JSON.parse(localStorage.getItem('productAdded')).length >= props.data.length
   ) {
-    productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id];
+    productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id]
+      .added;
   } else {
     let items;
     if (!JSON.parse(localStorage.getItem('productAdded'))) items = [];
     else items = JSON.parse(localStorage.getItem('productAdded'));
-    items[props.id] = false;
+    items[props.id] = {
+      added: false,
+      id: props.id,
+      desc: props.desc,
+      price: props.price,
+    };
     localStorage.setItem('productAdded', JSON.stringify(items));
-    productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id];
+    productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id]
+      .added;
   }
 
   function handleAddToCart() {
     const items = JSON.parse(localStorage.getItem('productAdded'));
-    items[props.id] = true;
+    items[props.id].added = true;
     localStorage.setItem('productAdded', JSON.stringify(items));
     props.setNumOfItemsAdded(prev => prev + 1);
     setOpenModal(true);
