@@ -55,6 +55,7 @@ function CartItem(props) {
           alt="Trash can icon"
           width="70px"
           className="products__delete"
+          onClick={() => props.removeItem(props.id)}
         />
       </div>
       <div className="products__product-part">

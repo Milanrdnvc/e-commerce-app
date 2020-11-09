@@ -25,7 +25,10 @@ function App() {
               />
             )}
           />
-          <Route path="/cart" component={Cart} />
+          <Route
+            path="/cart"
+            render={() => <Cart setNumOfItemsAdded={setNumOfItemsAdded} />}
+          />
           <Route
             path="/moreinfo"
             render={() => (
