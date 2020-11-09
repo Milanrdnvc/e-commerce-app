@@ -28,7 +28,14 @@ function App() {
           <Route path="/cart" component={Cart} />
           <Route
             path="/moreinfo"
-            render={() => <MoreInfo id={id} desc={desc} price={price} />}
+            render={() => (
+              <MoreInfo
+                id={id}
+                desc={desc}
+                price={price}
+                setNumOfItemsAdded={setNumOfItemsAdded}
+              />
+            )}
           />
         </Switch>
       </Router>
