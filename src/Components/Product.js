@@ -5,8 +5,8 @@ import cartImg from '../Pictures/cart.png';
 
 function Product(props) {
   const [openModal, setOpenModal] = useState(false);
-
   let productAdded;
+
   if (
     JSON.parse(localStorage.getItem('productAdded')) &&
     JSON.parse(localStorage.getItem('productAdded')).length >= props.data.length
@@ -22,6 +22,7 @@ function Product(props) {
       id: props.id,
       desc: props.desc,
       price: props.price,
+      total: 1,
     };
     localStorage.setItem('productAdded', JSON.stringify(items));
     productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id]

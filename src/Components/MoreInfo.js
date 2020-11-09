@@ -34,6 +34,7 @@ function MoreInfo(props) {
       id: props.id ? props.id : id,
       desc: props.desc ? props.desc : desc,
       price: props.price ? props.price : price,
+      total: 1,
     };
     localStorage.setItem('productAdded', JSON.stringify(items));
     props.setNumOfItemsAdded(prev => prev + 1);

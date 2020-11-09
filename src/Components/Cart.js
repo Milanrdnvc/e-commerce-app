@@ -3,6 +3,12 @@ import CartItem from './CartItem';
 import '../CSS/Cart.css';
 
 function Cart() {
+  if (
+    !JSON.parse(localStorage.getItem('productAdded')) ||
+    JSON.parse(localStorage.getItem('productAdded')).every(item => !item.added)
+  )
+    return <h1>Cart Is Empty</h1>;
+
   const items = JSON.parse(localStorage.getItem('productAdded')).filter(
     item => item.added
   );

@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import trash from '../Pictures/trash.png';
 import '../CSS/Cart.css';
 
 function CartItem(props) {
+  const total = JSON.parse(localStorage.getItem('productAdded'))[props.id]
+    .total;
+  const [quantity, setQuantity] = useState(total);
+
+  function increment() {
+    const items = JSON.parse(localStorage.getItem('productAdded'));
+    items[props.id].total = quantity + 1;
+    localStorage.setItem('productAdded', JSON.stringify(items));
+    setQuantity(prev => prev + 1);
+  }
+
+  function decrement() {
+    if (quantity <= 1) return;
+    const items = JSON.parse(localStorage.getItem('productAdded'));
+    items[props.id].total = quantity - 1;
+    localStorage.setItem('productAdded', JSON.stringify(items));
+    setQuantity(prev => prev - 1);
+  }
+
   return (
     <div className="products__product">
       <div className="products__product-part">
@@ -24,9 +43,9 @@ function CartItem(props) {
       <div className="products__product-part">
         <h2>QUANTITY</h2>
         <div className="products__inc-dec">
-          <button>-</button>
-          <span>1</span>
-          <button>+</button>
+          <button onClick={decrement}>-</button>
+          <span>{quantity}</span>
+          <button onClick={increment}>+</button>
         </div>
       </div>
       <div className="products__product-part">
@@ -40,7 +59,9 @@ function CartItem(props) {
       </div>
       <div className="products__product-part">
         <h2>TOTAL</h2>
-        <h3>Item Total: $10</h3>
+        <h3>
+          Item Total: {props.price.slice(0, props.price.length - 1) * quantity}$
+        </h3>
       </div>
     </div>
   );
