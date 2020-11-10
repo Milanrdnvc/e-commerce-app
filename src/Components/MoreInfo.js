@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import '../CSS/MoreInfo.css';
 
 function MoreInfo(props) {
-  console.log(props.id);
   const [openModal, setOpenModal] = useState(false);
   let id, desc, price;
 

@@ -10,7 +10,6 @@ function CartItem(props) {
   function increment() {
     const items = JSON.parse(localStorage.getItem('productAdded'));
     const addedItems = items.filter(item => item.added);
-    console.log(addedItems);
     items[props.id].total = quantity + 1;
     localStorage.setItem('productAdded', JSON.stringify(items));
     props.setSubtotal(
