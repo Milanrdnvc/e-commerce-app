@@ -4,6 +4,7 @@
 .cart-items {
   display: flex;
   flex-direction: column;
+  margin-bottom: 5rem;
 
   .btn-primary {
     margin: 0 0 1rem 0;
@@ -12,6 +13,7 @@
   &__total {
     font-size: 2.5rem;
     font-weight: bold;
+    margin-bottom: 1rem;
   }
 
   &__subtotal,

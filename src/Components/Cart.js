@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import CartItem from './CartItem';
+import PayPalButton from './PayPalButton';
 import '../CSS/Cart.css';
 
 function Cart(props) {
-  let items = JSON.parse(localStorage.getItem('productAdded')).filter(
-    item => item.added
-  );
+  let items = [];
+
+  if (localStorage.getItem('productAdded')) {
+    items = JSON.parse(localStorage.getItem('productAdded')).filter(
+      item => item.added
+    );
+  }
+
   const [subtotal, setSubtotal] = useState(
     items
       .map(item => {
@@ -28,7 +34,7 @@ function Cart(props) {
     if (id === 'all') {
       let newItems = items.map(item => ({ ...item, added: false, total: 1 }));
       localStorage.setItem('productAdded', JSON.stringify(newItems));
-      props.setNumOfItemsAdded(0);
+      props.setNumOfItemsAdded('zero');
     } else {
       items[id].added = false;
       items[id].total = 1;
@@ -50,15 +56,6 @@ function Cart(props) {
     );
   });
 
-  // const subtotal = items
-  // .map(item => {
-  // return {
-  // price: item.price.slice(0, item.price.length - 1),
-  // total: item.total,
-  // };
-  // })
-  // .reduce((a, c) => (a += c.price * c.total), 0);
-
   return (
     <div className="cart-items">
       <div className="cart-items__products">{cartItems}</div>
@@ -67,8 +64,16 @@ function Cart(props) {
           Clear Cart
         </button>
         <div className="cart-items__subtotal">Subtotal: {subtotal}</div>
-        <div className="cart-items__tax">Tax: 2.4$</div>
-        <div className="cart-items__total">Total: {subtotal + 2.4}$</div>
+        <div className="cart-items__tax">
+          Tax: {(subtotal * (1 / 100)).toFixed(2)}$
+        </div>
+        <div className="cart-items__total">
+          Total: {subtotal + subtotal * (1 / 100)}$
+        </div>
+        <PayPalButton
+          total={subtotal + subtotal * (1 / 100)}
+          removeItem={removeItem}
+        />
       </div>
     </div>
   );

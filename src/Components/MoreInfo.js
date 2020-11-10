@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom';
 import '../CSS/MoreInfo.css';
 
 function MoreInfo(props) {
+  console.log(props.id);
   const [openModal, setOpenModal] = useState(false);
   let id, desc, price;
 
   function setPreviousState() {
-    id = JSON.parse(localStorage.getItem('moreInfoState')).id;
-    desc = JSON.parse(localStorage.getItem('moreInfoState')).desc;
-    price = JSON.parse(localStorage.getItem('moreInfoState')).price;
+    if (localStorage.getItem('moreInfoState')) {
+      id = JSON.parse(localStorage.getItem('moreInfoState')).id;
+      desc = JSON.parse(localStorage.getItem('moreInfoState')).desc;
+      price = JSON.parse(localStorage.getItem('moreInfoState')).price;
+    }
   }
 
   if (!props.id) setPreviousState();
@@ -23,8 +26,9 @@ function MoreInfo(props) {
 
   let addedToCart;
   if (localStorage.getItem('productAdded')) {
-    addedToCart = JSON.parse(localStorage.getItem('productAdded'))[props.id]
-      .added;
+    addedToCart = JSON.parse(localStorage.getItem('productAdded'))[
+      props.id ? props.id : id
+    ].added;
   }
 
   function handleAddToCart() {
@@ -57,16 +61,18 @@ function MoreInfo(props) {
             <h2>{props.desc ? props.desc : desc}</h2>
             <h3>Price: {props.price ? props.price : price}</h3>
             <p className="more-info__para">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+              best girl best girl best girl best girl best girl best girl best
+              girl best girl best girl best girl best girl best girl best girl
+              best girl best girl best girl best girl best girl best girl best
+              girl best girl best girl best girl best girl best girl best girl
+              best girl best girl best girl best girl best girl best girl best
+              girl best girl best girl best girl best girl best girl best girl
+              best girl best girl best girl best girl best girl best girl best
+              girl best girl best girl best girl best girl best girl best girl
+              best girl best girl best girl best girl best girl best girl best
+              girl best girl best girl best girl best girl best girl best girl
+              best girl best girl best girl best girl best girl best girl best
+              girl
             </p>
             <Link to="/">
               <button className="btn-primary">Back To Products</button>
