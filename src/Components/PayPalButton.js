@@ -19,8 +19,7 @@ function PayPalButton(props) {
   }
 
   const client = {
-    sandbox:
-      'AVMAxhEUJ61qio-0MV6iyLrOy3cEokEHHPiZj1qHSry6_wdvmYkr9GCB-UFs6ZzD5z1AImhAq9LAeMnz',
+    sandbox: process.env.REACT_APP_APP_ID,
     production: 'YOUR-PRODUCTION-APP-ID',
   };
 
