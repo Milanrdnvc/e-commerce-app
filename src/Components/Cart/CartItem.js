@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import trash from '../Pictures/trash.png';
-import '../CSS/Cart.css';
+import trash from '../../Pictures/trash.png';
+import '../../CSS/Cart.css';
 
 function CartItem(props) {
   const total = JSON.parse(localStorage.getItem('productAdded'))[props.id]
@@ -49,7 +49,7 @@ function CartItem(props) {
       <div className="cart-items__product-part">
         <h2>PRODUCT</h2>
         <img
-          src={require(`../Pictures/Pillow${props.id}.jpg`)}
+          src={require(`../../Pictures/Pillow${props.id}.jpg`)}
           alt={props.desc}
           width="100px"
         />

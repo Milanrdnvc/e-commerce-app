@@ -1,44 +1,42 @@
 import React, { useState } from 'react';
-import Modal from './Modal';
+import Modal from '../Shared Components/Modal';
 import { Link } from 'react-router-dom';
-import cartImg from '../Pictures/cart.png';
+import { setToLocalStorage, getFromLocalStorage } from '../../helpers';
+import cartImg from '../../Pictures/cart.png';
 
-function Product(props) {
+function Product({ price, desc, id, data, setInfo, setNumOfItemsInCart }) {
   const [openModal, setOpenModal] = useState(false);
   let productAdded;
 
   if (
     JSON.parse(localStorage.getItem('productAdded')) &&
-    JSON.parse(localStorage.getItem('productAdded')).length >= props.data.length
+    JSON.parse(localStorage.getItem('productAdded')).length >= data.length
   ) {
-    productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id]
-      .added;
+    productAdded = JSON.parse(localStorage.getItem('productAdded'))[id].added;
   } else {
     let items;
     if (!JSON.parse(localStorage.getItem('productAdded'))) items = [];
     else items = JSON.parse(localStorage.getItem('productAdded'));
-    items[props.id] = {
+    items[id] = {
       added: false,
-      id: props.id,
-      desc: props.desc,
-      price: props.price,
+      id: id,
+      desc: desc,
+      price: price,
       total: 1,
     };
     localStorage.setItem('productAdded', JSON.stringify(items));
-    productAdded = JSON.parse(localStorage.getItem('productAdded'))[props.id]
-      .added;
+    productAdded = JSON.parse(localStorage.getItem('productAdded'))[id].added;
   }
 
   function handleAddToCart() {
     const items = JSON.parse(localStorage.getItem('productAdded'));
-    items[props.id].added = true;
+    items[id].added = true;
     localStorage.setItem('productAdded', JSON.stringify(items));
-    props.setNumOfItemsAdded(prev => prev + 1);
     setOpenModal(true);
   }
 
   function handleSetInfo() {
-    props.setInfo({ id: props.id, desc: props.desc, price: props.price });
+    setInfo({ id: id, desc: desc, price: price });
   }
 
   return (
@@ -46,21 +44,21 @@ function Product(props) {
       <Link to="/moreinfo" style={{ textDecoration: 'none', color: 'black' }}>
         <div className="products-grid__product" onClick={handleSetInfo}>
           <img
-            src={require(`../Pictures/Pillow${props.id}.jpg`)}
-            alt={props.desc}
+            src={require(`../../Pictures/Pillow${id}.jpg`)}
+            alt={desc}
             width="300px"
             height="300px"
           />
           <div className="products-grid__text">
-            <h3>{props.desc}</h3>
-            <h3>{props.price}</h3>
+            <h3>{desc}</h3>
+            <h3>{price}</h3>
           </div>
           {!productAdded ? (
             <Link to="/">
               <div
                 className="products-grid__add-to-cart"
                 onClick={handleAddToCart}
-                id={props.id}
+                id={id}
               >
                 <img src={cartImg} alt="cart" width="80px" />
                 <h3>Add To Cart</h3>
@@ -68,7 +66,7 @@ function Product(props) {
             </Link>
           ) : (
             <Link to="/cart">
-              <div className="products-grid__add-to-cart" id={props.id}>
+              <div className="products-grid__add-to-cart" id={id}>
                 <img src={cartImg} alt="cart" width="80px" />
                 <h3>Go To Cart</h3>
               </div>
@@ -77,9 +75,9 @@ function Product(props) {
         </div>
       </Link>
       <Modal
-        id={props.id}
-        desc={props.desc}
-        price={props.price}
+        id={id}
+        desc={desc}
+        price={price}
         openModal={openModal}
         toggleModal={() => setOpenModal(false)}
       />

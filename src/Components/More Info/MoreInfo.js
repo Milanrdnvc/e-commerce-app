@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Modal from './Modal';
+import Modal from '../Shared Components/Modal';
 import { Link } from 'react-router-dom';
-import '../CSS/MoreInfo.css';
+import '../../CSS/MoreInfo.css';
 
 function MoreInfo(props) {
   const [openModal, setOpenModal] = useState(false);
@@ -50,7 +50,9 @@ function MoreInfo(props) {
         <h1 className="more-info__heading">{props.desc ? props.desc : desc}</h1>
         <div className="more-info__pic-desc">
           <img
-            src={require(`../Pictures/Pillow${props.id ? props.id : id}.jpg`)}
+            src={require(`../../Pictures/Pillow${
+              props.id ? props.id : id
+            }.jpg`)}
             width="500px"
             height="600px"
             alt={props.desc ? props.desc : desc}

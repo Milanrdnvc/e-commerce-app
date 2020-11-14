@@ -1,15 +1,10 @@
 import React from 'react';
-import logo from '../Pictures/logo.png';
-import cart from '../Pictures/cart.png';
+import logo from '../../Pictures/logo.png';
+import cart from '../../Pictures/cart.png';
 import { Link } from 'react-router-dom';
-import '../CSS/Header.css';
+import '../../CSS/Header.css';
 
-function Header(props) {
-  let addedItems = 0;
-  const items = JSON.parse(localStorage.getItem('productAdded'));
-
-  if (items) items.forEach(item => (item.added ? addedItems++ : null));
-
+function Header({ numOfItemsInCart, setNumOfItemsInCart }) {
   return (
     <header>
       <Link to="/" style={{ textDecoration: 'none' }}>
@@ -22,10 +17,7 @@ function Header(props) {
         <div className="cart">
           <img src={cart} alt="cart-icon" className="cart__icon" width="50px" />
           <h2 className="cart__text">
-            Cart{' '}
-            <span className="num-of-products">
-              ({items ? addedItems : props.numOfItemsAdded})
-            </span>
+            Cart <span className="num-of-products">({numOfItemsInCart})</span>
           </h2>
         </div>
       </Link>

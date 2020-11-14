@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
-import '../CSS/Modal.css';
+import '../../CSS/Modal.css';
 
 function Modal(props) {
   if (!props.openModal) return null;
@@ -11,7 +11,7 @@ function Modal(props) {
       <div className="added-to-cart-modal">
         <h3>Item Added To Cart</h3>
         <img
-          src={require(`../Pictures/Pillow${props.id}.jpg`)}
+          src={require(`../../Pictures/Pillow${props.id}.jpg`)}
           alt={props.desc}
         />
         <h3>{props.desc}</h3>

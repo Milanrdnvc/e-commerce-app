@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CartItem from './CartItem';
 import PayPalButton from './PayPalButton';
-import '../CSS/Cart.css';
+import '../../CSS/Cart.css';
 
 function Cart(props) {
   let items = [];

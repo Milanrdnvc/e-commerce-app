@@ -1,44 +1,22 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import Products from './Products';
-import Cart from './Cart';
-import MoreInfo from './MoreInfo';
+import Products from './Products/Products';
+import Cart from './Cart/Cart';
+import MoreInfo from './More Info/MoreInfo';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import '../CSS/App.css';
 
 function App() {
-  const [numOfItemsAdded, setNumOfItemsAdded] = useState(0);
   const [{ id, desc, price }, setInfo] = useState({});
 
   return (
     <>
       <Router>
-        <Header numOfItemsAdded={numOfItemsAdded} />
         <Switch>
-          <Route
-            path="/"
-            exact
-            render={() => (
-              <Products
-                setNumOfItemsAdded={setNumOfItemsAdded}
-                setInfo={setInfo}
-              />
-            )}
-          />
-          <Route
-            path="/cart"
-            render={() => <Cart setNumOfItemsAdded={setNumOfItemsAdded} />}
-          />
+          <Route path="/" exact render={() => <Products setInfo={setInfo} />} />
+          <Route path="/cart" render={() => <Cart />} />
           <Route
             path="/moreinfo"
-            render={() => (
-              <MoreInfo
-                id={id}
-                desc={desc}
-                price={price}
-                setNumOfItemsAdded={setNumOfItemsAdded}
-              />
-            )}
+            render={() => <MoreInfo id={id} desc={desc} price={price} />}
           />
         </Switch>
       </Router>
