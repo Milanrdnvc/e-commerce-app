@@ -1,46 +1,34 @@
 import React, { useState } from 'react';
+import { getFromLocalStorage, setToLocalStorage } from '../../helpers';
 import trash from '../../Pictures/trash.png';
 import '../../CSS/Cart.css';
 
-function CartItem(props) {
-  const total = JSON.parse(localStorage.getItem('productAdded'))[props.id]
-    .total;
+function CartItem({
+  id,
+  desc,
+  price,
+  removeItem,
+  setSubtotal,
+  calculateSubtotal,
+}) {
+  const total = getFromLocalStorage('items')[id].total;
   const [quantity, setQuantity] = useState(total);
+  const items = getFromLocalStorage('items');
 
   function increment() {
-    const items = JSON.parse(localStorage.getItem('productAdded'));
-    const addedItems = items.filter(item => item.added);
-    items[props.id].total = quantity + 1;
-    localStorage.setItem('productAdded', JSON.stringify(items));
-    props.setSubtotal(
-      addedItems
-        .map(item => {
-          return {
-            price: item.price.slice(0, item.price.length - 1),
-            total: item.total,
-          };
-        })
-        .reduce((a, c) => (a += c.price * c.total), 0)
-    );
+    items[id].total = quantity + 1;
+    setToLocalStorage('items', items);
+    const addedItems = getFromLocalStorage('items').filter(item => item.added);
+    setSubtotal(calculateSubtotal(addedItems));
     setQuantity(prev => prev + 1);
   }
 
   function decrement() {
     if (quantity <= 1) return;
-    const items = JSON.parse(localStorage.getItem('productAdded'));
-    const addedItems = items.filter(item => item.added);
-    items[props.id].total = quantity - 1;
-    localStorage.setItem('productAdded', JSON.stringify(items));
-    props.setSubtotal(
-      addedItems
-        .map(item => {
-          return {
-            price: item.price.slice(0, item.price.length - 1),
-            total: item.total,
-          };
-        })
-        .reduce((a, c) => (a += c.price * c.total), 0)
-    );
+    items[id].total = quantity - 1;
+    setToLocalStorage('items', items);
+    const addedItems = getFromLocalStorage('items').filter(item => item.added);
+    setSubtotal(calculateSubtotal(addedItems));
     setQuantity(prev => prev - 1);
   }
 
@@ -49,18 +37,18 @@ function CartItem(props) {
       <div className="cart-items__product-part">
         <h2>PRODUCT</h2>
         <img
-          src={require(`../../Pictures/Pillow${props.id}.jpg`)}
-          alt={props.desc}
+          src={require(`../../Pictures/Pillow${id}.jpg`)}
+          alt={desc}
           width="100px"
         />
       </div>
       <div className="cart-items__product-part">
         <h2>NAME OF PRODUCT</h2>
-        <h3>{props.desc}</h3>
+        <h3>{desc}</h3>
       </div>
       <div className="cart-items__product-part">
         <h2>PRICE</h2>
-        <h3>{props.price}</h3>
+        <h3>{price}</h3>
       </div>
       <div className="cart-items__product-part">
         <h2>QUANTITY</h2>
@@ -77,14 +65,12 @@ function CartItem(props) {
           alt="Trash can icon"
           width="70px"
           className="cart-items__delete"
-          onClick={() => props.removeItem(props.id)}
+          onClick={() => removeItem(id)}
         />
       </div>
       <div className="cart-items__product-part">
         <h2>TOTAL</h2>
-        <h3>
-          Item Total: {props.price.slice(0, props.price.length - 1) * quantity}$
-        </h3>
+        <h3>Item Total: {price.slice(0, price.length - 1) * quantity}$</h3>
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ if (!getFromLocalStorage('items')) {
   setToLocalStorage('items', items);
 } else items = getFromLocalStorage('items');
 
-function Products({ setInfo }) {
+function Products() {
   const [numOfItemsInCart, setNumOfItemsInCart] = useState(
     getNumOfItemsAdded(getFromLocalStorage('items'))
   );
