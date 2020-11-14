@@ -21,7 +21,7 @@ function Products(props) {
   return (
     <>
       <main>
-        <h1>Our Products</h1>
+        <h1>Hello</h1>
         <div className="products-grid">{products}</div>
       </main>
     </>
