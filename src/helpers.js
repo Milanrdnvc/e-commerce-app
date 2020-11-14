@@ -1,4 +1,5 @@
 export function getFromLocalStorage(key) {
+  if (localStorage.getItem(key) === 'undefined') return null;
   return JSON.parse(localStorage.getItem(key));
 }
 

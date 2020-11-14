@@ -9,15 +9,22 @@ import {
 import { data } from '../../data.js';
 import '../../CSS/Products.css';
 
-const items = data.map(item => {
-  console.log(item.id);
-  return { added: false, price: item.price, desc: item.desc, id: item.id };
-});
-
-setToLocalStorage('items', items);
+let items;
+if (!getFromLocalStorage('items')) {
+  items = data.map(item => {
+    return {
+      added: false,
+      price: item.price,
+      desc: item.desc,
+      id: item.id,
+      total: 1,
+      clicked: false,
+    };
+  });
+  setToLocalStorage('items', items);
+} else items = getFromLocalStorage('items');
 
 function Products({ setInfo }) {
-  console.log(getFromLocalStorage('items'));
   const [numOfItemsInCart, setNumOfItemsInCart] = useState(
     getNumOfItemsAdded(getFromLocalStorage('items'))
   );
@@ -29,8 +36,6 @@ function Products({ setInfo }) {
         desc={item.desc}
         key={item.id}
         id={item.id}
-        data={data}
-        setInfo={setInfo}
         setNumOfItemsInCart={setNumOfItemsInCart}
       />
     );

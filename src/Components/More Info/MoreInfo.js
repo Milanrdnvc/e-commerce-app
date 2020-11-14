@@ -1,66 +1,49 @@
 import React, { useState } from 'react';
 import Modal from '../Shared Components/Modal';
+import Header from '../Shared Components/Header';
 import { Link } from 'react-router-dom';
+import {
+  getFromLocalStorage,
+  getNumOfItemsAdded,
+  setToLocalStorage,
+} from '../../helpers';
 import '../../CSS/MoreInfo.css';
 
-function MoreInfo(props) {
+function MoreInfo() {
   const [openModal, setOpenModal] = useState(false);
-  let id, desc, price;
-
-  function setPreviousState() {
-    if (localStorage.getItem('moreInfoState')) {
-      id = JSON.parse(localStorage.getItem('moreInfoState')).id;
-      desc = JSON.parse(localStorage.getItem('moreInfoState')).desc;
-      price = JSON.parse(localStorage.getItem('moreInfoState')).price;
-    }
-  }
-
-  if (!props.id) setPreviousState();
-  else {
-    localStorage.setItem(
-      'moreInfoState',
-      JSON.stringify({ id: props.id, desc: props.desc, price: props.price })
-    );
-  }
-
-  let addedToCart;
-  if (localStorage.getItem('productAdded')) {
-    addedToCart = JSON.parse(localStorage.getItem('productAdded'))[
-      props.id ? props.id : id
-    ].added;
-  }
+  const [numOfItemsInCart, setNumOfItemsInCart] = useState(
+    getNumOfItemsAdded(getFromLocalStorage('items'))
+  );
+  const item = getFromLocalStorage('items').filter(item => item.clicked)[0];
+  const addedToCart = item.added;
 
   function handleAddToCart() {
-    const items = JSON.parse(localStorage.getItem('productAdded'));
-    items[props.id ? props.id : id] = {
-      added: true,
-      id: props.id ? props.id : id,
-      desc: props.desc ? props.desc : desc,
-      price: props.price ? props.price : price,
-      total: 1,
-    };
-    localStorage.setItem('productAdded', JSON.stringify(items));
-    props.setNumOfItemsAdded(prev => prev + 1);
+    const items = getFromLocalStorage('items');
+    items[item.id].added = true;
+    setToLocalStorage('items', items);
+    setNumOfItemsInCart(prev => prev + 1);
     setOpenModal(true);
   }
 
   return (
     <>
+      <Header
+        numOfItemsInCart={numOfItemsInCart}
+        setNumOfItemsInCart={setNumOfItemsInCart}
+      />
       <div className="more-info">
-        <h1 className="more-info__heading">{props.desc ? props.desc : desc}</h1>
+        <h1 className="more-info__heading">{item.desc}</h1>
         <div className="more-info__pic-desc">
           <img
-            src={require(`../../Pictures/Pillow${
-              props.id ? props.id : id
-            }.jpg`)}
+            src={require(`../../Pictures/Pillow${item.id}.jpg`)}
             width="500px"
             height="600px"
-            alt={props.desc ? props.desc : desc}
+            alt={item.desc}
             className="more-info__pic"
           />
           <div className="more-info__desc">
-            <h2>{props.desc ? props.desc : desc}</h2>
-            <h3>Price: {props.price ? props.price : price}</h3>
+            <h2>{item.desc}</h2>
+            <h3>Price: {item.price}</h3>
             <p className="more-info__para">
               best girl best girl best girl best girl best girl best girl best
               girl best girl best girl best girl best girl best girl best girl
@@ -91,9 +74,9 @@ function MoreInfo(props) {
         </div>
       </div>
       <Modal
-        id={props.id ? props.id : id}
-        desc={props.desc ? props.desc : desc}
-        price={props.price ? props.price : price}
+        id={item.id}
+        desc={item.desc}
+        price={item.price}
         openModal={openModal}
         toggleModal={() => setOpenModal(false)}
       />

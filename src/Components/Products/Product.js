@@ -4,45 +4,35 @@ import { Link } from 'react-router-dom';
 import { setToLocalStorage, getFromLocalStorage } from '../../helpers';
 import cartImg from '../../Pictures/cart.png';
 
-function Product({ price, desc, id, data, setInfo, setNumOfItemsInCart }) {
+function Product({ price, desc, id, setNumOfItemsInCart }) {
   const [openModal, setOpenModal] = useState(false);
-  let productAdded;
-
-  if (
-    JSON.parse(localStorage.getItem('productAdded')) &&
-    JSON.parse(localStorage.getItem('productAdded')).length >= data.length
-  ) {
-    productAdded = JSON.parse(localStorage.getItem('productAdded'))[id].added;
-  } else {
-    let items;
-    if (!JSON.parse(localStorage.getItem('productAdded'))) items = [];
-    else items = JSON.parse(localStorage.getItem('productAdded'));
-    items[id] = {
-      added: false,
-      id: id,
-      desc: desc,
-      price: price,
-      total: 1,
-    };
-    localStorage.setItem('productAdded', JSON.stringify(items));
-    productAdded = JSON.parse(localStorage.getItem('productAdded'))[id].added;
-  }
+  const productAdded = getFromLocalStorage('items')[id].added;
 
   function handleAddToCart() {
-    const items = JSON.parse(localStorage.getItem('productAdded'));
+    const items = getFromLocalStorage('items');
     items[id].added = true;
-    localStorage.setItem('productAdded', JSON.stringify(items));
+    setToLocalStorage('items', items);
+    setNumOfItemsInCart(prev => prev + 1);
     setOpenModal(true);
   }
 
-  function handleSetInfo() {
-    setInfo({ id: id, desc: desc, price: price });
+  function updateClickedInLocalStorage() {
+    const items = getFromLocalStorage('items');
+    const newItems = items.map(item => {
+      return item.id !== id
+        ? { ...item, clicked: false }
+        : { ...item, clicked: true };
+    });
+    setToLocalStorage('items', newItems);
   }
 
   return (
     <>
       <Link to="/moreinfo" style={{ textDecoration: 'none', color: 'black' }}>
-        <div className="products-grid__product" onClick={handleSetInfo}>
+        <div
+          className="products-grid__product"
+          onClick={updateClickedInLocalStorage}
+        >
           <img
             src={require(`../../Pictures/Pillow${id}.jpg`)}
             alt={desc}

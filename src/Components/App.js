@@ -14,10 +14,7 @@ function App() {
         <Switch>
           <Route path="/" exact render={() => <Products setInfo={setInfo} />} />
           <Route path="/cart" render={() => <Cart />} />
-          <Route
-            path="/moreinfo"
-            render={() => <MoreInfo id={id} desc={desc} price={price} />}
-          />
+          <Route path="/moreinfo" render={() => <MoreInfo />} />
         </Switch>
       </Router>
     </>
