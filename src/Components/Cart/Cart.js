@@ -49,6 +49,8 @@ function Cart() {
       items[id].total = 1;
       setToLocalStorage('items', items);
       setNumOfItemsInCart(prev => prev - 1);
+      const addedItems = items.filter(item => item.added);
+      setSubtotal(calculateSubtotal(addedItems));
     }
   }
 
